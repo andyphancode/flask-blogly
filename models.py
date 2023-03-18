@@ -26,3 +26,8 @@ class User(db.Model):
                           nullable=False,
                           default='https://cdn.discordapp.com/emojis/1086145090667421717?size=96&quality=lossless')
     
+    @property
+    def full_name(self):
+        "Return full name"
+        
+        return f"{self.first_name} {self.last_name}"
