@@ -4,16 +4,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{user.first_name}} {{user.last_name}}</title>
+    <title>{{user.full_name}}</title>
 </head>
 <body>
     <img src="{{user.image_url}}" alt="">
-    <h1>{{user.first_name}} {{user.last_name}}</h1>
+    <h1>{{user.full_name}}</h1>
     <form action="/users/{{user.id}}/edit" method="get">
         <button>Edit</button>
     </form>
     <form action="/users/{{user.id}}/delete" method="post">
         <button>Delete</button>
+    </form>
+    <form action="/users" method="get">
+        <button>Back to users</button>
+    </form>
+    <h1>Posts</h1>
+    <ul>
+        {% for post in user.posts %}
+        <h1><a href="/posts/{{post.id}}">{{post.title}}</a></h1>
+        <p>{{post.content}}</p>
+        {% endfor %}
+    </ul>
+    <form action="/users/{{user.id}}/posts/new" method="get">
+        <button>Add Post</button>
     </form>
 </body>
 </html>

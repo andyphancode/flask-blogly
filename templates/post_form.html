@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Post</title>
+</head>
+<body>
+    <h1>Add Post for {{user.full_name}}</h1>
+    <form action="/users/{{user.id}}/posts/new" method="POST">
+        <label for="title">title</label>
+        <input type="text" name="title">
+        <label for="content">content</label>
+        <input type="text" name="content">
+        <button>Add</button>
+    </form>
+    <form action="/users/{{user.id}}" method="get">
+        <button>Cancel</button>
+    </form>
+</body>
+</html>
