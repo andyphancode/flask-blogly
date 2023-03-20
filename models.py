@@ -31,7 +31,6 @@ class User(db.Model):
 
     @property
     def full_name(self):
-
         """Return full name"""
         
         return f"{self.first_name} {self.last_name}"
@@ -54,10 +53,43 @@ class Post(db.Model):
     user_id = db.Column(db.Integer,
                         db.ForeignKey('users.id'),
                         nullable=False)
+    
+    post_tags = db.relationship('PostTag', backref='post')
+
+    tags = db.relationship('Tag',
+                           secondary='posttags',
+                           backref='posts')
 
     @property
     def friendly_date(self):
-
         """Nicer date format"""
 
         return self.created_at.strftime("%a %b %-d  %Y, %H:%M:%S")
+
+class Tag(db.Model):
+    """Tag."""
+
+    __tablename__ = "tags"
+
+    id = db.Column(db.Integer,
+                   primary_key=True,
+                   autoincrement=True)
+    
+    name = db.Column(db.Text,
+                     nullable=False,
+                     unique=True)
+    
+    post_tags = db.relationship('PostTag', backref='tag')
+    
+class PostTag(db.Model):
+    """Tags associated with a single post"""
+
+    __tablename__ = "posttags"
+
+    post_id = db.Column(db.Integer,
+                        db.ForeignKey('posts.id'),
+                        primary_key=True)
+    tag_id = db.Column(db.Integer,
+                       db.ForeignKey('tags.id'),
+                       primary_key=True)
+    
