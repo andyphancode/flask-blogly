@@ -8,15 +8,18 @@
 </head>
 <body>
     <h1>Edit Post ({{post.title}})</h1>
-    <form action="/posts/{{post.id}}/edit" method="POST">
+    <form>
         <label for="title">title</label>
         <input type="text" name="title">
         <label for="content">post content</label>
         <input type="text" name="content">
-        <button>Edit</button>
-    </form>
-    <form action="/users/{{post.user.id}}">
-        <button>Cancel</button>
-    </form>
+        {% for tag in tags %}
+        <div>
+            <input type="checkbox" name="tags" value={{tag.id}} id="tag_{{tag.id}}">
+            <label for="tag_{{tag.id}}">{{tag.name}}</label>
+        </div>
+        {% endfor %}
+        <button formaction="/users/{{post.user.id}}" formmethod="get">Cancel</button>
+        <button formaction="/posts/{{post.id}}/edit" formmethod="POST">Edit</button>
 </body>
 </html>
