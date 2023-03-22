@@ -7,6 +7,7 @@ from app import *
 app = Flask(__name__)
 app.app_context().push()
 app.config['SECRET_KEY'] = 'idksecretkey'
+# Change blogly to blogly_test when using unittest (issue unresolved as of now)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
@@ -15,7 +16,7 @@ connect_db(app)
 db.create_all()
 
 @app.errorhandler(404)
-def error_age():
+def error_age(e):
     """404 Page"""
 
     return render_template('404.html'), 404
